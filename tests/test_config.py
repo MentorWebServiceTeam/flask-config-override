@@ -1,0 +1,1 @@
+SOME_TEST_KEY = 'MyTestString'
