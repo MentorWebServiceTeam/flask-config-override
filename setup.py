@@ -25,5 +25,7 @@ setup(name='config_override',
       packages=find_packages(exclude=['tests*']),
       test_suite='tests',
       zip_safe=False,
-      test_require=test_requirements,
+      extras_require={
+          'test': test_requirements,
+      },
       install_requires=[])
