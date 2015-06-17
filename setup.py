@@ -16,7 +16,7 @@ test_requirements = [
 ]
 
 setup(name='config_override',
-      version='0.1',
+      version='0.2',
       description='Python utilities for loading config',
       url='https://github.com/MentorWebServiceTeam/flask-config-override',
       author='Josh Frankamp',
@@ -28,4 +28,4 @@ setup(name='config_override',
       extras_require={
           'test': test_requirements,
       },
-      install_requires=[])
+      install_requires=['raven==5.3.1', 'blinker==1.3'])

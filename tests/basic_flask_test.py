@@ -19,6 +19,14 @@ def test_with_real_config():
     config_override.basic_app_config(app, {}, config_list=['ITEM'])
     assert app.config['SOME_TEST_KEY'] == "MyTestString"
 
+def test_with_sentry():
+    app = Flask(__name__)
+    os.environ['ITEM'] = "test_config.py"
+    config_override.basic_app_config(app, {"SENTRY_DSN": "https://fe015ba0684b48b9a8b79cbcc4addddd:8b5a7d4353354d9eae63d579093c2561@app.getsentry.com/46208"}, config_list=['ITEM'])
+    print app.extensions
+    print app.config
+    assert 'sentry' in app.extensions
+
 def test_with_real_config_explicit_override():
     app = Flask(__name__)
     os.environ['ITEM'] = "test_config.py"
