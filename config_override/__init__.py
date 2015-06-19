@@ -2,6 +2,7 @@ from raven.contrib.flask import Sentry
 import time
 import os
 import logging
+import sys
 
 def repeat_it(func, number, wait_message="Sleeping while calling function, try %s/%s"):
     """
@@ -58,9 +59,13 @@ def basic_app_config(app, explicit_configs, config_list=["LOCAL_DEFAULT_CONFIG",
     for key in explicit_configs:
         app.config[key] = explicit_configs[key]
 
-    if 'SENTRY_DSN' in app.config:
-        sentry = Sentry(app)
-
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s") 
     app.logger.handlers[0].setFormatter(formatter)
+    if not app.config['DEBUG']:
+        app.logger.addHandler(logging.StreamHandler(sys.stdout))
+        app.logger.handlers[-1].setFormatter(formatter)
+    if 'SENTRY_DSN' in app.config:
+        sentry = Sentry(app, register_signal=False)
+
+
 
