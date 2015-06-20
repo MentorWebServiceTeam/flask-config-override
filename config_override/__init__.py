@@ -61,11 +61,11 @@ def basic_app_config(app, explicit_configs, config_list=["LOCAL_DEFAULT_CONFIG",
 
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s") 
     app.logger.handlers[0].setFormatter(formatter)
-    if not app.config['DEBUG']:
+    if not app.debug:
         app.logger.addHandler(logging.StreamHandler(sys.stdout))
         app.logger.handlers[-1].setFormatter(formatter)
+        app.logger.info("Not debug mode")
+    else:
+        app.logger.info("Debug mode")
     if 'SENTRY_DSN' in app.config:
-        sentry = Sentry(app, register_signal=False)
-
-
-
+        sentry = Sentry(app)
